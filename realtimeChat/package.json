@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@react-native-community/viewpager": "^5.0.11",
     "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/native": "^6.1.8",

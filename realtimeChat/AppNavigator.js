@@ -6,19 +6,35 @@ import LoginScreen from './src/screens/login/Index';
 import SearchScreen from './src/screens/search/Index';
 import SignUpScreen from './src/screens/signup/Index';
 import MessageScreen from './src/screens/message/Index';
+import { useState } from 'react';
 
 const Stack = createNativeStackNavigator();
 
 function AppNavigator() {
+    const [initialised] = useState(true)
+    const [authenticated] = useState(true)
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown:false}}/>
-      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}}/>
-      <Stack.Screen name="SearchScreen" component={SearchScreen} options={{headerShown:false}}/>
-      <Stack.Screen name="MessageScreen" component={MessageScreen} options={{headerShown:false}}/>
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown:false}}/>
+        {!initialised?(
+            <>
+                <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}/>
+            </>
+        ): !authenticated?(
+            <>
+                <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}}/>
+                <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown:false}}/>
+            </>
+
+        ):(
+            <>
+                <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown:false}}/>
+                <Stack.Screen name="SearchScreen" component={SearchScreen} options={{headerShown:false}}/>
+                <Stack.Screen name="MessageScreen" component={MessageScreen} options={{headerShown:false}}/>
+            </>
+
+        )}
+        
     </Stack.Navigator>
   );
 }

@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const SignUpScreen = () => {
+const Profile = () => {
   return (
     <SafeAreaView>
-      <Text>SignUpScreen</Text>
+      <Text>Profile</Text>
     </SafeAreaView>
   )
 }
 
-export default SignUpScreen
+export default Profile
 
 const styles = StyleSheet.create({})
