@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 function AppNavigator() {
     const [initialised] = useState(true)
-    const [authenticated] = useState(true)
+    const [authenticated] = useState(false)
 
   return (
     <Stack.Navigator>

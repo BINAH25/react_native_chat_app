@@ -8,6 +8,7 @@ const Title = ({text, color}) => {
     textAlign: 'center',
     fontSize: 48,
     marginHorizontal: 20,
+    marginBottom:30,
     }}>{text}
     </Text>
     
