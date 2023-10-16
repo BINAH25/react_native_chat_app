@@ -1,16 +1,16 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 
-const Input = ({title, value,setValue}) => {
+const Input = ({title, value,setValue,error, setError}) => {
   return (
     <View>
       <Text
       style={{
-        color:'#70747a',
+        color: error? '#ff5555' :'#70747a',
         marginVertical: 6,
         paddingLeft: 16,
     }}>
-        {title}
+        {error? error : title}
         </Text>
       <TextInput
       style={{
@@ -23,6 +23,9 @@ const Input = ({title, value,setValue}) => {
       value={value}
       onChangeText={text =>{
         setValue(text)
+        if(error){
+          setError('')
+        }
       }}
       />
     </View>

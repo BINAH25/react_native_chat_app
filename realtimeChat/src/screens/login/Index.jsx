@@ -17,7 +17,22 @@ const LoginScreen = () => {
 
   const OnSignIn = () =>{
     console.log(`Username:${username}, Password: ${password}`)
+// CHECK USERNAME
+    const failUsername = !username
+    if(failUsername){
+      setUsernameError("Username not provided")
+    }
+// CHECK PASSWORD
+    const failPassword = !password
+    if(failPassword){
+      setPasswordError("Password not provided")
+    }
+// BREAK OUT OF THE FUNCTION IF THERE WERE ANY ISSUES
+    if(failUsername || failPassword){
+      return
+    }
   }
+  
   return (
     <SafeAreaView style={styles.safe_area}>
       <View style={styles.view}>
