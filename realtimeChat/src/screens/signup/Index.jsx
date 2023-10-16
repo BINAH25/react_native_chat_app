@@ -21,9 +21,9 @@ const SignUpScreen = () => {
         <Text style={{textAlign :'center', marginTop:40}}>
           Already have an account? <Text 
           style={{color:'blue'}}
-          onPress={()=>navigation.navigate('LoginScreen') }
+          onPress={()=>navigation.goBack() }
           >
-            login</Text>
+            Sign In</Text>
         </Text>
       </View>
     </SafeAreaView>

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 
-const Input = ({title}) => {
+const Input = ({title, value,setValue}) => {
   return (
     <View>
       <Text
@@ -19,6 +19,10 @@ const Input = ({title}) => {
         height:52,
         paddingHorizontal: 16,
         fontSize: 16
+      }}
+      value={value}
+      onChangeText={text =>{
+        setValue(text)
       }}
       />
     </View>
