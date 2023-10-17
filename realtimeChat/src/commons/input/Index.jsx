@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 
-const Input = ({title, value,setValue,error, setError}) => {
+const Input = ({title, value,setValue,error, setError, secureTextEntry=false}) => {
   return (
     <View>
       <Text
@@ -13,6 +13,7 @@ const Input = ({title, value,setValue,error, setError}) => {
         {error? error : title}
         </Text>
       <TextInput
+      secureTextEntry={secureTextEntry}
       style={{
         backgroundColor:'#e1e2e4',
         borderRadius: 26,
