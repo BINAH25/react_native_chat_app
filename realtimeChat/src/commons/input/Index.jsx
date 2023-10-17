@@ -14,6 +14,8 @@ const Input = ({title, value,setValue,error, setError, secureTextEntry=false}) =
         </Text>
       <TextInput
       secureTextEntry={secureTextEntry}
+      autoCapitalize='none'
+      autoComplete='off'
       style={{
         backgroundColor:'#e1e2e4',
         borderRadius: 26,

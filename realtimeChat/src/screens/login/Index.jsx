@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Keyboard, SafeAreaView, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useState } from 'react'
 import styles from './login.style'
 import Title from '../../commons/title/Index'
@@ -32,37 +32,39 @@ const LoginScreen = () => {
       return
     }
   }
-  
+
   return (
     <SafeAreaView style={styles.safe_area}>
-      <View style={styles.view}>
-        <Title text='Real Time Chat' color='#202020'/>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.view}>
+          <Title text='Real Time Chat' color='#202020'/>
 
-        <Input 
-        title='Username'
-        value={username}
-        setValue={setUsername}
-        error={usernameError}
-        setError={setUsernameError}
-        />
-        <Input 
-        title='Password'
-        value={password}
-        setValue={setPassword}
-        error={passwordError}
-        setError={setPasswordError}
-        />
+          <Input 
+          title='Username'
+          value={username}
+          setValue={setUsername}
+          error={usernameError}
+          setError={setUsernameError}
+          />
+          <Input 
+          title='Password'
+          value={password}
+          setValue={setPassword}
+          error={passwordError}
+          setError={setPasswordError}
+          />
 
 
-        <Button title='Login' onPress={OnSignIn}/>
-        <Text style={{textAlign :'center', marginTop:40}}>
-          Don't have a account? <Text 
-          style={{color:'blue'}}
-          onPress={()=>navigation.navigate('SignUpScreen') }
-          >
-            Sign up</Text>
-        </Text>
-      </View>
+          <Button title='Login' onPress={OnSignIn}/>
+          <Text style={{textAlign :'center', marginTop:40}}>
+            Don't have a account? <Text 
+            style={{color:'blue'}}
+            onPress={()=>navigation.navigate('SignUpScreen') }
+            >
+              Sign up</Text>
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   )
 }
