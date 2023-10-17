@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import {Keyboard, SafeAreaView, StyleSheet, Text, View,KeyboardAvoidingView,TouchableWithoutFeedback } from 'react-native'
 import React, { useState } from 'react'
 import Input from '../../commons/input/Index'
 import Button from '../login/Button'
@@ -58,57 +58,61 @@ const SignUpScreen = () => {
 
   return (
     <SafeAreaView style={styles.safe_area}>
-      <View style={styles.view}>
-        <Title text='Sign Up' color='#202020'/>
-        <Input 
-        title='Username'
-        value={username}
-        setValue={setUsername}
-        error={usernameError}
-        setError={setUsernameError}
-        />
-        <Input 
-        title='First Name'
-        value={firstName}
-        setValue={setFirstName}
-        error={firstNameError}
-        setError={setFirstNameError}
-        />
-        <Input 
-        title='Last Name'
-        value={lastName}
-        setValue={setLastName}
-        error={lastNameError}
-        setError={setLastNameError}
-        />
-        <Input 
-        title='Password'
-        value={password}
-        setValue={setPassword}
-        error={passwordError}
-        setError={setPasswordError}
-        secureTextEntry={true}
-        />
-        <Input 
-        title='Retype Password'
-        value={password2}
-        setValue={setPasswor2}
-        error={password2Error}
-        setError={setPassword2Error}
-        secureTextEntry={true}
-        />
-        <Button 
-        title='Sign Up'
-        onPress={OnSignUP}
-        />
-        <Text style={{textAlign :'center', marginTop:40}}>
-          Already have an account? <Text 
-          style={{color:'blue'}}
-          onPress={()=>navigation.goBack() }
-          >
-            Sign In</Text>
-        </Text>
-      </View>
+      <KeyboardAvoidingView behavior='height' style ={{flex:1}}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.view}>
+            <Title text='Sign Up' color='#202020'/>
+            <Input 
+            title='Username'
+            value={username}
+            setValue={setUsername}
+            error={usernameError}
+            setError={setUsernameError}
+            />
+            <Input 
+            title='First Name'
+            value={firstName}
+            setValue={setFirstName}
+            error={firstNameError}
+            setError={setFirstNameError}
+            />
+            <Input 
+            title='Last Name'
+            value={lastName}
+            setValue={setLastName}
+            error={lastNameError}
+            setError={setLastNameError}
+            />
+            <Input 
+            title='Password'
+            value={password}
+            setValue={setPassword}
+            error={passwordError}
+            setError={setPasswordError}
+            secureTextEntry={true}
+            />
+            <Input 
+            title='Retype Password'
+            value={password2}
+            setValue={setPasswor2}
+            error={password2Error}
+            setError={setPassword2Error}
+            secureTextEntry={true}
+            />
+            <Button 
+            title='Sign Up'
+            onPress={OnSignUP}
+            />
+            <Text style={{textAlign :'center', marginTop:40}}>
+              Already have an account? <Text 
+              style={{color:'blue'}}
+              onPress={()=>navigation.goBack() }
+              >
+                Sign In</Text>
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
