@@ -9,7 +9,7 @@ from .utils import get_all_user_permissions
 # Create your views here.
 
 
-def auth_for_user(user):
+def get_auth_for_user(user):
     return {
         'user':UserLoginSerializer(user).data,
         'permission':get_all_user_permissions(user)
@@ -23,9 +23,6 @@ class SignInView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        if not username or password:
-            return Response(status=400)
-    
         user = authenticate(username=username,password=password)
         if not user:
             return Response({'message':'Invalid Credential'}, status=401)
