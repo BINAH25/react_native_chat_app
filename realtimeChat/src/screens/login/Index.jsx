@@ -6,6 +6,7 @@ import Input from '../../commons/input/Index'
 import Button from './Button'
 import { useNavigation } from '@react-navigation/native'
 import api from '../../utils/api'
+import useGlobal from '../../global/Global'
 // MAIN FUNCTION 
 const LoginScreen = () => {
   const navigation = useNavigation()
@@ -15,9 +16,11 @@ const LoginScreen = () => {
   const [usernameError, setUsernameError] = useState('')
   const [passwordError, setPasswordError] = useState('')
 
+  // LOGIN
+  const login = useGlobal(state => state.login)
+
 
   const OnSignIn = () =>{
-    console.log(`Username:${username}, Password: ${password}`)
 // CHECK USERNAME
     const failUsername = !username
     if(failUsername){
@@ -41,7 +44,7 @@ const LoginScreen = () => {
         password: password
       }
     }).then(response => {
-      console.log(response.data)
+      login(response.data)
     }).catch(error => {
       if (error.response) {
         // The request was made and the server responded with a status code

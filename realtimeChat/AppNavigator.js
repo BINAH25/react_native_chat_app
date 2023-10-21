@@ -7,13 +7,13 @@ import SearchScreen from './src/screens/search/Index';
 import SignUpScreen from './src/screens/signup/Index';
 import MessageScreen from './src/screens/message/Index';
 import { useState } from 'react';
-
+import useGlobal from './src/global/Global';
 const Stack = createNativeStackNavigator();
 
 function AppNavigator() {
     const [initialised] = useState(true)
-    const [authenticated] = useState(false)
 
+    const authenticated = useGlobal(state => state.authenticated)
   return (
     <Stack.Navigator>
         {!initialised?(
