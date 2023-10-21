@@ -4,7 +4,7 @@ const useGlobal = create((set) => ({
     //------------------
     // AUTHENTICATION
     //------------------
-    authenticated: false,
+    authenticated: true,
     user:{},
 
     login: (user)=>{

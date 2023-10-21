@@ -1,14 +1,19 @@
-import {SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import {SafeAreaView, StyleSheet, Text, View,Image,TouchableOpacity } from 'react-native'
 import React from 'react'
+import styles from './profile.style'
+import ProfileLogout from './ProfileLogout'
 
 const Profile = () => {
   return (
-    <SafeAreaView>
-      <Text>Profile</Text>
-    </SafeAreaView>
+    <View style={styles.view}>
+      <Image source={require('../../assets/666201.png')}
+          style={{ width:180, height:180, borderRadius: 90, backgroundColor:'#e0e0e0', marginBottom:20}}/>
+      <Text style={styles.name}>Louis Seyram</Text>
+      <Text style={styles.username}>@seyram</Text>
+      <ProfileLogout/>
+    </View>
   )
 }
 
 export default Profile
 
-const styles = StyleSheet.create({})
