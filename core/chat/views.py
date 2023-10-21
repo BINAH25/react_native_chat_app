@@ -6,13 +6,18 @@ from .serializers import *
 from django.contrib.auth import authenticate
 from rest_framework.permissions import AllowAny
 from .utils import get_all_user_permissions
+from rest_framework.authtoken.models import Token
+from rest_framework import status
+
 # Create your views here.
 
 
 def get_auth_for_user(user):
+    token, created = Token.objects.get_or_create(user=user)
     return {
         'user':UserLoginSerializer(user).data,
-        'permission':get_all_user_permissions(user)
+        #'permission':get_all_user_permissions(user),
+        'token':token.key
         
     }
     
@@ -25,7 +30,23 @@ class SignInView(APIView):
         password = request.data.get('password')
         user = authenticate(username=username,password=password)
         if not user:
-            return Response({'message':'Invalid Credential'}, status=401)
+            return Response({'message':'Invalid Credential'}, status=400)
         
         user_data = get_auth_for_user(user)
         return Response(user_data, status=200)
+
+class SignUpView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+       data = request.data
+       serializer = UserRegistrationSerializer(data=data)
+       if serializer.is_valid():
+           serializer.save()
+           return Response(serializer.data, status=200)
+       else:
+           error_response = {
+                "message": serializer.errors  
+            }
+           return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
+
