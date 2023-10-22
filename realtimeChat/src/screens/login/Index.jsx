@@ -44,7 +44,8 @@ const LoginScreen = () => {
         password: password
       }
     }).then(response => {
-      login(response.data)
+      login(response.data.user)
+      console.log(response.data.user)
     }).catch(error => {
       if (error.response) {
         // The request was made and the server responded with a status code

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-
+import Secure from './Secure'
 const useGlobal = create((set) => ({
     //------------------
     // AUTHENTICATION
@@ -15,6 +15,7 @@ const useGlobal = create((set) => ({
     },
 
     logout: ()=>{
+        Secure.wipe()
         set((state)=>({
             authenticated:false,
             user:{}

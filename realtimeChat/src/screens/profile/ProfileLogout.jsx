@@ -5,6 +5,7 @@ import useGlobal from '../../global/Global'
 
 const ProfileLogout = () => {
     const logout = useGlobal(state => state.logout)
+
     return(
         <TouchableOpacity 
         onPress={logout}
