@@ -16,7 +16,7 @@ def get_auth_for_user(user):
     token, created = Token.objects.get_or_create(user=user)
     return {
         'user':UserLoginSerializer(user).data,
-        #'permission':get_all_user_permissions(user),
+        'permission':get_all_user_permissions(user),
         'token':token.key
         
     }
@@ -30,7 +30,8 @@ class SignInView(APIView):
         password = request.data.get('password')
         user = authenticate(username=username,password=password)
         if not user:
-            return Response({'message':'Invalid Credential'}, status=400)
+            response_data = {'message':'Invalid Credential'}
+            return Response(response_data, status=400)
         
         user_data = get_auth_for_user(user)
         return Response(user_data, status=200)

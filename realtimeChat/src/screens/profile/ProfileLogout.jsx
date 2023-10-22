@@ -2,13 +2,22 @@ import { TouchableOpacity, Text, View } from 'react-native'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import useGlobal from '../../global/Global'
+import { logout } from '../../actions/AuthAction'
+import { useDispatch ,useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native'
 
 const ProfileLogout = () => {
-    const logout = useGlobal(state => state.logout)
+  const navigation = useNavigation()
+  const dispatch = useDispatch();
+  // LOGOUT
+  const logoutHandler = () => {
+    dispatch(logout())
+    navigation.navigate('LoginScreen')
+  }
 
     return(
         <TouchableOpacity 
-        onPress={logout}
+        onPress={logoutHandler}
         style={{
           flexDirection: 'row',
           height:52,
