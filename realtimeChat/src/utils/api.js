@@ -7,4 +7,6 @@ const api = axios.create({
     }
 })
 
+export let BASE_API_URI = 'http://127.0.0.1:8000/';
+
 export default api
