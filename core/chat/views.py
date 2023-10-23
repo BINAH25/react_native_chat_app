@@ -43,8 +43,9 @@ class SignUpView(APIView):
        data = request.data
        serializer = UserRegistrationSerializer(data=data)
        if serializer.is_valid():
-           serializer.save()
-           return Response(serializer.data, status=200)
+           user = serializer.save()
+           user_data = get_auth_for_user(user)
+           return Response(user_data, status=200)
        else:
            error_response = {
                 "message": serializer.errors  
