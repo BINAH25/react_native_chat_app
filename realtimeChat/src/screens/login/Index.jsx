@@ -14,6 +14,7 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
 
   const [usernameError, setUsernameError] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -23,45 +24,58 @@ const LoginScreen = () => {
   // LOGIN
   const user_login = useSelector(state => state.user_login)
   const { error, loading, userInfo } = user_login
-
-  const OnSignIn = async () =>{
-// CHECK USERNAME
-    const failUsername = !username
-    if(failUsername){
-      setUsernameError("Username not provided")
-    }
-// CHECK PASSWORD
-    const failPassword = !password
-    if(failPassword){
-      setPasswordError("Password not provided")
-    }
-// BREAK OUT OF THE FUNCTION IF THERE WERE ANY ISSUES
-    if(failUsername || failPassword){
-      return
-    }
-    dispatch(login(username,password))
-    
-  }
-
+ 
   useEffect(() => {
-    if (userInfo)  {
-        setShowSuccessMessage(true);
-        setPassword('')
-        setUsername('')
-// Delay the redirection to allow the user to see the message
-        const timer = setTimeout(() => {
-          navigation.navigate('HomeScreen') ;
-        }, 1000); 
-        return () => clearTimeout(timer);
-    } else if (error){
-        setShowErrorMessage(true)
-        const timer = setTimeout(() => {
-            setShowErrorMessage(false); 
-        }, 1000); 
-
-        return () => clearTimeout(timer);
+    if (userInfo) {
+      setUser(userInfo.user);
     }
-}, [userInfo ,error]);
+  }, [userInfo]);
+  useEffect(() => {
+    if (user) {
+      setShowSuccessMessage(true);
+      setPassword('');
+      setUsername('');
+  
+      // Delay the redirection to allow the user to see the message
+      const timer = setTimeout(() => {
+        setShowSuccessMessage(false);
+        navigation.navigate('HomeScreen');
+        setUser(null);
+      }, 500);
+  
+      return () => clearTimeout(timer);
+    } else if (error) {
+      setShowErrorMessage(true);
+  
+      const timer = setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 1000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [user, error]);
+  
+  // ...
+  
+  const OnSignIn = async () => {
+    // CHECK USERNAME
+    const failUsername = !username;
+    if (failUsername) {
+      setUsernameError("Username not provided");
+    }
+    // CHECK PASSWORD
+    const failPassword = !password;
+    if (failPassword) {
+      setPasswordError("Password not provided");
+    }
+    // BREAK OUT OF THE FUNCTION IF THERE WERE ANY ISSUES
+    if (failUsername || failPassword) {
+      return;
+    }
+    dispatch(login(username, password));
+  };
+  
+  
     
   return (
     <SafeAreaView style={styles.safe_area}>

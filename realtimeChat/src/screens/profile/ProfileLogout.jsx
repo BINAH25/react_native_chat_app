@@ -1,7 +1,6 @@
 import { TouchableOpacity, Text, View } from 'react-native'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import useGlobal from '../../global/Global'
 import { logout } from '../../actions/AuthAction'
 import { useDispatch ,useSelector} from 'react-redux';
 import { useNavigation } from '@react-navigation/native'

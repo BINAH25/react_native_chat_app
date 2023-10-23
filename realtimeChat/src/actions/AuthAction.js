@@ -1,3 +1,5 @@
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios'
 import { getState } from 'redux'
 import { 
@@ -11,8 +13,19 @@ import {
 } from "../constants/UserConstant";
 
 import { BASE_API_URI } from '../utils/api';
-import Secure from '../global/Secure';
 
+export const Init = () => {
+    return async dispatch => {
+      let user = await AsyncStorage.getItem('user');
+      if (user !== null) {
+        console.log('token fetched');
+        dispatch({
+          type: USER_LOGIN_SUCCESS,
+          payload: user,
+        })
+      }
+    }
+  }
 // USER LOGIN ACTION
 export const login = (username, password) => async(dispatch) =>{
     try {
@@ -33,10 +46,9 @@ export const login = (username, password) => async(dispatch) =>{
             type: USER_LOGIN_SUCCESS,
             payload:data
         })
-        Secure.set('userInfo',data)
-        Secure.set('user',data.user)
-        Secure.set('token',data.token)
-        Secure.set('user_permissions',data.permission)
+        await AsyncStorage.setItem('user',JSON.stringify(data.user))
+        await AsyncStorage.setItem('token',JSON.stringify(data.token))
+        await AsyncStorage.setItem('user_permissions',JSON.stringify(data.permission))
 
     } catch (error) {
         dispatch({
@@ -49,12 +61,15 @@ export const login = (username, password) => async(dispatch) =>{
 }
 
 // USER LOGOUT ACTION
-export const logout = ()=>(dispatch) =>{
-    Secure.remove('userInfo')
-    Secure.remove('user')
-    Secure.remove('token')
-    Secure.remove('user_permissions')
-    dispatch({type:USER_LOGOUT})
+export const logout = () => async (dispatch) => {
+    try {
+        await AsyncStorage.clear();
+        dispatch({ type: USER_LOGOUT });
+        console.log('logout successful')
+    } catch (error) {
+        console.log('Error during logout:', error);
+    }
 }
+
 
 
