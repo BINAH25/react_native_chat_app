@@ -1,14 +1,18 @@
 import {Keyboard, SafeAreaView, StyleSheet, Text, View,KeyboardAvoidingView,TouchableWithoutFeedback } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Input from '../../commons/input/Index'
 import Button from '../login/Button'
 import styles from './signup.style'
 import { useNavigation } from '@react-navigation/native'
 import Title from '../../commons/title/Index'
 import { register } from '../../actions/AuthAction'
+import { useDispatch ,useSelector} from 'react-redux';
+
 // MAIN FUNCTION
 const SignUpScreen = () => {
   const navigation = useNavigation()
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -107,7 +111,15 @@ const SignUpScreen = () => {
               fontSize:20,
               color:'red'
               }}>
-             {showErrorMessage && <Text>{error}</Text> }
+             {showErrorMessage && (
+              <>
+                {Object.keys(error).map((field) => (
+                  <Text key={field} style={{ color: 'red' }}>
+                    {`${field}: ${error[field]}\n`}
+                  </Text>
+                ))}
+              </>
+            )}
             </Text>
             <Text 
             style={{
