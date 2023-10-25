@@ -5,8 +5,7 @@ import Button from '../login/Button'
 import styles from './signup.style'
 import { useNavigation } from '@react-navigation/native'
 import Title from '../../commons/title/Index'
-import api from '../../utils/api'
-
+import { register } from '../../actions/AuthAction'
 // MAIN FUNCTION
 const SignUpScreen = () => {
   const navigation = useNavigation()
@@ -21,10 +20,47 @@ const SignUpScreen = () => {
   const [lastNameError, setLastNameError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [password2Error, setPassword2Error] = useState('')
+  const [user, setUser] = useState(null)
+  //MESSAGE
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+
+  // REGISTRATION
+  const user_registrstion = useSelector(state => state.user_registrstion)
+  const { error, loading, userInfo } = user_registrstion
+ 
+  useEffect(() => {
+    if (userInfo) {
+      setUser(userInfo.user);
+    }
+  }, [userInfo]);
+  useEffect(() => {
+    if (user) {
+      setShowSuccessMessage(true);
+      setPassword('');
+      setUsername('');
+  
+      // Delay the redirection to allow the user to see the message
+      const timer = setTimeout(() => {
+        setShowSuccessMessage(false);
+        navigation.navigate('HomeScreen');
+        setUser(null);
+      }, 500);
+  
+      return () => clearTimeout(timer);
+    } else if (error) {
+      setShowErrorMessage(true);
+  
+      const timer = setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 1000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [user, error]);
 
 
   const OnSignUP = ()=>{
-    console.log('*** creating user account ***')
 // USERNAME CHECK
     const failUsername = !username || username.length < 4
     if(failUsername){
@@ -56,44 +92,31 @@ const SignUpScreen = () => {
       return
     }
     // MAKE REQUEST
-    api({
-      method:"POST",
-      url:"chat/auth/sign_up/",
-      data:{
-        username: username,
-        last_name: lastName,
-        first_name: firstName,
-        password: password
-      }
-    }).then(response => {
-      console.log(response.data)
-    }).catch(error => {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-    })
+    dispatch(register(firstName, lastName, username, password));
 
   }
-
   return (
     <SafeAreaView style={styles.safe_area}>
       <KeyboardAvoidingView behavior='height' style ={{flex:1}}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.view}>
             <Title text='Sign Up' color='#202020'/>
+            <Text 
+            style={{
+              textAlign :'center',
+              fontSize:20,
+              color:'red'
+              }}>
+             {showErrorMessage && <Text>{error}</Text> }
+            </Text>
+            <Text 
+            style={{
+              textAlign :'center',
+              fontSize:20,
+              color:'green'
+              }}>
+             {showSuccessMessage && <Text>Registration Successful</Text> }
+            </Text>
             <Input 
             title='Username'
             value={username}

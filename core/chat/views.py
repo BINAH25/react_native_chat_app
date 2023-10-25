@@ -17,8 +17,7 @@ def get_auth_for_user(user):
     return {
         'user':UserLoginSerializer(user).data,
         'permission':get_all_user_permissions(user),
-        'token':token.key
-        
+        'token':token.key  
     }
     
 

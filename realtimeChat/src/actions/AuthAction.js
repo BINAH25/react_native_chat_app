@@ -60,6 +60,45 @@ export const login = (username, password) => async(dispatch) =>{
     }
 }
 
+// USER REGISTRATION ACTION
+export const register = (firstName,lastName,username, password) => async(dispatch) =>{
+    try {
+        dispatch({
+            type: USER_REGISTRATION_REQUEST,
+        })
+        const config = {
+            headers:{
+                'content-type':'application/json'
+            }
+        }
+        const {data} = await axios.post(
+            `${BASE_API_URI}/chat/auth/sign_up/`,
+            {
+                'first_name':firstName,
+                'last_name':lastName,
+                'username':username,
+                'password':password,
+            },
+            config
+        )
+        dispatch({
+            type: USER_REGISTRATION_SUCCESS,
+            payload:data
+        })
+        await AsyncStorage.setItem('user',JSON.stringify(data.user))
+        await AsyncStorage.setItem('token',JSON.stringify(data.token))
+        await AsyncStorage.setItem('user_permissions',JSON.stringify(data.permission))
+
+    } catch (error) {
+        dispatch({
+            type:USER_REGISTRATION_FAILED,
+            payload: error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message
+        })
+    }
+}
+
 // USER LOGOUT ACTION
 export const logout = () => async (dispatch) => {
     try {

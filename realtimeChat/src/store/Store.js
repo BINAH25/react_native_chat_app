@@ -2,12 +2,13 @@ import {legacy_createStore as createStore,combineReducers,applyMiddleware} from 
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import { user_login_reducer } from '../reducers/AuthReducer'
+import { user_login_reducer, user_registrstion_reducer} from '../reducers/AuthReducer'
 
 // COMBINE REDUCERS START
 const reducer = combineReducers({
     // USER REDUCER
     user_login: user_login_reducer,
+    user_registrstion:user_registrstion_reducer
 })
 
 const initailState = {

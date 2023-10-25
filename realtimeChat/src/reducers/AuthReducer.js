@@ -42,9 +42,6 @@ import {
         case USER_REGISTRATION_FAILED:
             return {loading:false, error:action.payload}
 
-        case USER_LOGOUT:
-            return {}
-
         default:
             return state
     }
