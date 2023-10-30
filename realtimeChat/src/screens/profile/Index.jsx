@@ -3,6 +3,7 @@ import { View, Text, Image } from 'react-native';
 import styles from './profile.style';
 import ProfileLogout from './ProfileLogout';
 import { useSelector } from 'react-redux';
+import ProfileImage from './ProfileImage';
 
 const Profile = () => {
   // Use useSelector to get user information from the Redux store
@@ -15,16 +16,7 @@ const Profile = () => {
 
     return (
       <View style={styles.view}>
-        <Image
-          source={require('../../assets/666201.png')}
-          style={{
-            width: 180,
-            height: 180,
-            borderRadius: 90,
-            backgroundColor: '#e0e0e0',
-            marginBottom: 20,
-          }}
-        />
+        <ProfileImage/>
         <Text style={styles.name}>{`${first_name} ${last_name}`}</Text>
         <Text style={styles.username}>{`@${username}`}</Text>
         <ProfileLogout />
