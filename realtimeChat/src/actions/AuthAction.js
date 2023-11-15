@@ -47,7 +47,7 @@ export const login = (username, password) => async(dispatch) =>{
             payload:data
         })
         await AsyncStorage.setItem('user',JSON.stringify(data.user))
-        await AsyncStorage.setItem('token',JSON.stringify(data.token))
+        await AsyncStorage.setItem('token',data.token)
         await AsyncStorage.setItem('user_permissions',JSON.stringify(data.permission))
 
     } catch (error) {

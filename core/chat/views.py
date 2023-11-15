@@ -6,18 +6,20 @@ from .serializers import *
 from django.contrib.auth import authenticate
 from rest_framework.permissions import AllowAny
 from .utils import get_all_user_permissions
-from rest_framework.authtoken.models import Token
+#from rest_framework.authtoken.models import Token
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
 
 def get_auth_for_user(user):
-    token, created = Token.objects.get_or_create(user=user)
+    refresh = RefreshToken.for_user(user)
     return {
         'user':UserLoginSerializer(user).data,
         'permission':get_all_user_permissions(user),
-        'token':token.key  
+        'refresh': str(refresh),
+        'token': str(refresh.access_token) 
     }
     
 
