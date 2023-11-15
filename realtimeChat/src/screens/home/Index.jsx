@@ -1,5 +1,5 @@
 import { SafeAreaView, StyleSheet, Text, View, Image} from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 
@@ -7,9 +7,19 @@ import Request from '../request/Index';
 import Profile from '../profile/Index';
 import Friends from '../friends/Index';
 import SearchScreen from '../search/Index';
+import { useDispatch ,useSelector} from 'react-redux';
+import { socketConnect,socketDisconnect } from '../../actions/SocketAction';
 
 const HomeScreen = () => {
   const Tab = createBottomTabNavigator();
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(socketConnect())
+    return ()=>{
+      socketDisconnect()
+    }
+  },[])
 
   return (
     <Tab.Navigator
