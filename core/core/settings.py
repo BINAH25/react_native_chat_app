@@ -27,10 +27,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# channels
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            'hosts':[('127.0.0.1', 6379)]
+        }
+    }
+}
+# dahpne
+ASGI_APPLICATION = 'core.asgi.application'
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -41,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
+    
 ]
 
 MIDDLEWARE = [
@@ -126,7 +138,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
