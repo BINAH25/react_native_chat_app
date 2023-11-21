@@ -35,7 +35,6 @@ class SignInView(APIView):
             return Response(response_data, status=400)
         
         user_data = get_auth_for_user(user)
-        print(user)
         return Response(user_data, status=200)
 
 class SignUpView(APIView):

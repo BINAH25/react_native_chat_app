@@ -1,7 +1,6 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios'
-import { getState } from 'redux'
 import { 
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
@@ -10,6 +9,7 @@ import {
     USER_REGISTRATION_SUCCESS,
     USER_REGISTRATION_FAILED,
     USER_LOGOUT,
+    
 } from "../constants/UserConstant";
 
 import { BASE_API_URI } from '../utils/api';

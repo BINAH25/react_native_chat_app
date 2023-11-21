@@ -2,13 +2,20 @@ import { StyleSheet, Text, TouchableOpacity, View,Image } from 'react-native'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { launchImageLibrary } from 'react-native-image-picker'
+import { uploadThumbnail } from '../../actions/SocketAction'
+import { useDispatch} from 'react-redux';
+
 const ProfileImage = () => {
+  const dispatch = useDispatch();
+
   return (
     <TouchableOpacity 
     style ={{ marginBottom: 20}}
     onPress={()=>{
-        launchImageLibrary({},(response)=>{
-            console.log(response)
+        launchImageLibrary({includeBase64:true},(response)=>{
+            if (response.didCancel) return
+            const file = response.assets[0]
+            dispatch(uploadThumbnail(file))
         })
     }}
     >
